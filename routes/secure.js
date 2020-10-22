@@ -1,7 +1,7 @@
 
 import Router from 'koa-router'
 
-const router = new Router({ prefix: '/gl' })
+const router = new Router({ prefix: '/secure' })
 
 import Contacts from '../modules/contacts.js'
 const dbName = 'website.db'
@@ -20,7 +20,8 @@ router.get('/', async ctx => {
 	try {
 		const records = await contacts.all()
     console.log(records)
-    await ctx.render('gl', ctx.hbs)
+    ctx.hbs.records = records
+    await ctx.render('secure', ctx.hbs)
 	} catch(err) {
 		ctx.hbs.error = err.message
 		await ctx.render('error', ctx.hbs)

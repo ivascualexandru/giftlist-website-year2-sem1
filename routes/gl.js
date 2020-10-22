@@ -1,7 +1,10 @@
 
 import Router from 'koa-router'
 
-const router = new Router({ prefix: '/secure' })
+const router = new Router({ prefix: '/gl' })
+
+import Contacts from '../modules/contacts.js'
+const dbName = 'website.db'
 
 async function checkAuth(ctx, next) {
 	console.log('secure router middleware')
@@ -13,8 +16,11 @@ async function checkAuth(ctx, next) {
 router.use(checkAuth)
 
 router.get('/', async ctx => {
+  const contacts = await new Contacts(dbName)
 	try {
-		await ctx.render('secure', ctx.hbs)
+		const records = await contacts.all()
+    console.log(records)
+    await ctx.render('gl', ctx.hbs)
 	} catch(err) {
 		ctx.hbs.error = err.message
 		await ctx.render('error', ctx.hbs)

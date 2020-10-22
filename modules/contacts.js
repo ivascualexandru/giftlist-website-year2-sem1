@@ -16,7 +16,7 @@ class Contacts {
     return (async() => {
     this.db = await sqlite.open(dbName)
     //We need this to store the user accounts
-    const sql = 'CREATE TABLE IF NOT EXISTS events(\
+    const sql = 'CREATE TABLE IF NOT EXISTS contacts(\
      id INTEGER PRIMARY KEY AUTOINCREMENT,\
      userid INTEGER NOT NULL,\
     title TEXT NOT NULL,\
@@ -38,13 +38,9 @@ class Contacts {
 
 async all() {
 const sql = 'SELECT users.user, contacts.* FROM contacts,users\
-            WHERE contacts.userid = users.id;'
+              WHERE contacts.userid = users.id;'
 const contacts = await this.db.all(sql)
 return contacts
 }}
 
 export default Contacts
-
-
-
-

@@ -16,7 +16,10 @@ async function checkAuth(ctx, next) {
 router.use(checkAuth)
 
 router.get('/', async ctx => {
+  const contacts = await new Contacts(dbName)
 	try {
+    const records = await contacts.all()
+    console.log(records)
 		await ctx.render('secure', ctx.hbs)
 	} catch(err) {
 		ctx.hbs.error = err.message

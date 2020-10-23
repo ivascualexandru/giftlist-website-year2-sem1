@@ -25,20 +25,21 @@
 			</aside>
 		{{/if}}
 	<main>
+    {{#if authorised}}
+			<p><a href="/secure">Secure page</a></p>
+		{{/if}}
 		<table>
-      <tr><th>Photo</th><th>User</th><th>Description</th><th>Date</th></tr>
+      <p>This is the home page. Everyone can see this.</p>
+      <tr><th>Photo</th><th>Title</th><th>Description</th><th>Date</th></tr>
         {{#each records}}
         <tr>
-          <td><img src = "public/eventpictures/{{this.photo}}" /></td>
-          <td>{{this.user}}</td>
+          <td><img src = "public/avatars/{{this.photo}}" /></td>
+          <td>{{this.title}}</td>
           <td>{{this.description}}</td>
           <td>{{this.date}}</td>
         </tr>
         {{/each}}
       </table>
-		{{#if authorised}}
-			<p><a href="/secure">secure page</a></p>
-		{{/if}}
 	</main>
 	</body>
 </html>

@@ -2,11 +2,13 @@
 import Router from 'koa-router'
 import bodyParser from 'koa-body'
 
+import Contacts from '../modules/contacts.js'
+const dbName = 'website.db'
+import Accounts from '../modules/accounts.js'
+
 const router = new Router()
 router.use(bodyParser({multipart: true}))
 
-import Accounts from '../modules/accounts.js'
-const dbName = 'website.db'
 
 /**
  * The secure home page.
@@ -15,7 +17,11 @@ const dbName = 'website.db'
  * @route {GET} /
  */
 router.get('/', async ctx => {
+	const contacts = await new Contacts(dbName)
 	try {
+    const records = await contacts.all()
+    console.log(records)
+    ctx.hbs.records = records
 		await ctx.render('index', ctx.hbs)
 	} catch(err) {
 		await ctx.render('error', ctx.hbs)

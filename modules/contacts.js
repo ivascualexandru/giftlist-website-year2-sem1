@@ -40,6 +40,11 @@ async all() {
 const sql = 'SELECT users.user, contacts.* FROM contacts,users\
               WHERE contacts.userid = users.id;'
 const contacts = await this.db.all(sql)
+for (const index in contacts) {
+const dateTime = new Date(contacts[index].date)
+const dateFormatted = `${dateTime.getDate()}/${dateTime.getMonth()+1}/${dateTime.getFullYear()}`
+contacts[index].date = dateFormatted
+}
 return contacts
 }}
 

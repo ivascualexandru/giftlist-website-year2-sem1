@@ -22,6 +22,9 @@
 		{{/if}}
 		<main>
 		<p><a href="/">Home page</a></p>
+    {{#if authorised}}
+      <p><a href="/newevent">Add a new event</a></p>
+    {{/if}}
     <p>This is a secure page. Users need to have a valid account and be logged in to see it.</p>
     <table>
       <tr><th>Photo</th><th>Title</th><th>Description</th><th>Date</th></tr>

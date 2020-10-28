@@ -3,6 +3,15 @@
 
 <html lang="en">
 	<head>
+    <script>
+      function formdata() 
+      {
+        var firstname= document.getElementById("firstname").value;
+        var lastname= document.getElementById("lastname").value;
+        alert("The first name you entered is " + firstname);
+        alert("The last name you entered is " + lastname);
+      }
+    </script>
 		<meta charset="utf-8">
 		<title>Add New Event</title>
 		<meta name="description" content="form to add new books">
@@ -20,6 +29,11 @@
 		<table>
 			<p>This is the page to add new events. Only logged in users can see this.</p>
 			<p>Right now it is empty, however this will be changed later.</p>
+			<form><br>
+        Enter your First Name: <input type="text" id="firstname"/><br><br>
+        Enter your Last Name: <input type="text" id="lastname"/><br><br>
+        <input type="submit" value="Submit" onclick="formdata()"/><br>
+      </form>
 		</table>
 	</main>
 	</body>

@@ -3,6 +3,7 @@ import Router from 'koa-router'
 
 const router = new Router({ prefix: '/newevent' })
 
+
 async function checkAuth(ctx, next) {
 	console.log('secure router middleware')
 	console.log(ctx.hbs)

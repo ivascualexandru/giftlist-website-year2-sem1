@@ -27,17 +27,17 @@
 	<main>
     {{#if authorised}}
 			<p><a href="/secure">Secure page</a></p>
-      <p><a href="/newevent">Add a new event</a></p>
 		{{/if}}
 		<table>
       <p>This is the home page. Everyone can see this.</p>
-      <tr><th>Photo</th><th>Title</th><th>Description</th><th>Date</th></tr>
+      <tr><th>Photo</th><th>Title</th><th>Description</th><th>Date</th><th>Items</th></tr>
         {{#each records}}
         <tr>
-          <td><img src = "avatars/{{this.photo}}" /></td>
+          <td><img src = "photos/{{this.photo}}" /></td>
           <td>{{this.title}}</td>
           <td>{{this.description}}</td>
           <td>{{this.date}}</td>
+          <td>{{this.items}}</td>
         </tr>
         {{/each}}
       </table>

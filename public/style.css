@@ -71,7 +71,7 @@ p, legend {
 }
 
 main {
-	max-width: 800px;
+	max-width: 1500px;
   margin:auto;
   margin-top:2em;
   padding:2em;
@@ -227,7 +227,6 @@ tr:nth-child(odd) {
 }
 
 td, th {
-	/* border: 1px solid grey; */
 	padding: 0.5vw;
 	font-size: 1.5vw;
 }

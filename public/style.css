@@ -180,6 +180,18 @@ textarea {
 	resize: none;
 }
 
+input:required, textarea:required {
+  border-width:2px;
+}
+
+input:invalid, textarea:invalid {
+  border-color:red;
+}
+
+input:valid, textarea:valid {
+  border-color:darkgreen;
+}
+
 select {
 	width: 26.3vw;
 	-webkit-appearance: none;

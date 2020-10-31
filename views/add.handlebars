@@ -31,7 +31,7 @@
             <form action="/action_page.php">
               <label for="myfile">Click here to add a file</label>
               <input type="file" id="myfile" name="myfile"><br><br>
-                <input type="submit">
+              <input type="submit">
             </form>
         <p>
           <label for="description">Event Description</label><br />
@@ -40,6 +40,18 @@
         <p>
           <label for="items">Event Items</label><br />
           <input type="text" name="items" placeholder="ChewingGum,Pillows,..." value="" required>
+        </p>
+        <p>
+          <label><u><b>Date</b></u></label>
+          <p><label for="day">Day</label><br />
+          <input type="text" name="day" placeholder="Day of the event" value="" required>
+          </p>
+          <p><label for="month">Month</label><br />
+          <input type="text" name="month" placeholder="Month of the event" value="" required>
+          </p>
+          <p><label for="year">Year</label><br />
+          <input type="text" name="year" placeholder="Year of the event" value="" required>
+          </p>
         </p>
       </form>
 		</main>

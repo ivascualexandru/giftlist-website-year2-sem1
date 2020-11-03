@@ -36,13 +36,14 @@ router.post('/add', async ctx => {
 	const contacts = await new Contacts(dbName)
 	try {
 		ctx.request.body.account = ctx.session.userid
-		if (ctx.request.files.avatar.name) {
-			ctx.request.body.filePath = ctx.request.files.avatar.path
-			ctx.request.body.fileName = ctx.request.files.avatar.name
-			ctx.request.body.fileType = ctx.request.files.avatar.type
-		}
-		await contacts.add(ctx.request.body)
-		return ctx.redirect('/crm?msg=new event added')
+		if (ctx.request.files.photo.name) {
+			ctx.request.body.filePath = ctx.request.files.photo.path
+			ctx.request.body.fileName = ctx.request.files.photo.name
+			ctx.request.body.fileType = ctx.request.files.photo.type
+    ctx.request.body.account = ctx.session.userid
+    }
+    await contacts.add(ctx.request.body)
+		return ctx.redirect('/secure?msg=new event added')
 	} catch(err) {
 		console.log(err)
 		await ctx.render('error', ctx.hbs)

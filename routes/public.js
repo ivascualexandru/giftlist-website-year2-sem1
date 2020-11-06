@@ -3,8 +3,13 @@ import Router from 'koa-router'
 import bodyParser from 'koa-body'
 
 import Contacts from '../modules/contacts.js'
+import data from '../modules/contacts.js'
 const dbName = 'website.db'
 import Accounts from '../modules/accounts.js'
+
+import sqlite from 'sqlite-async'
+import mime from 'mime-types'
+import fs from 'fs-extra'
 
 const router = new Router()
 router.use(bodyParser({multipart: true}))
@@ -21,13 +26,17 @@ router.get('/', async ctx => {
 	try {
 		const records = await contacts.all()
 		console.log(records)
-		ctx.hbs.records = records
-		await ctx.render('index', ctx.hbs)
+    /*ctx.hbs.records.forEach(element => {
+    let itemName = element.items.split("~")[0];
+    let itemPrice = ctx.hbs.records[0].items.split("~")[1];
+    let itemLink = ctx.hbs.records[0].items.split("~")[2];
+    });*/
+    ctx.hbs.records = records
+    await ctx.render('index', ctx.hbs)
 	} catch(err) {
 		await ctx.render('error', ctx.hbs)
 	}
 })
-
 
 /**
  * The user registration page.

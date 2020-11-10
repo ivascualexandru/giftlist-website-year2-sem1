@@ -4,7 +4,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Home Page</title>
+		<title>Events - Overview</title>
 		<meta name="description" content="form to add new books">
 		<meta name="author" content="Mark Tyers">
 		<link href="{{host}}/style.css" type="text/css" rel="stylesheet" />
@@ -12,7 +12,7 @@
 	</head>
 	<body>
 		<header>
-		<h1>Secure Page</h1>
+		<h1>Events Overview</h1>
 		<a href="/logout">Log out</a>
 		</header>
 		{{#if msg}}
@@ -22,15 +22,23 @@
 		{{/if}}
 		<main>
 		<p><a href="/">Home page</a></p>
+    {{#if authorised}}
+      <p><a href="/secure/add">Add a new event</a></p>
+    {{/if}}
     <p>This is a secure page. Users need to have a valid account and be logged in to see it.</p>
     <table>
-      <tr><th>Photo</th><th>Title</th><th>Description</th><th>Date</th></tr>
+      <tr><th>Photo</th><th>Title</th><th>Description</th><th>Date</th><th>Items</th></tr>
         {{#each records}}
         <tr>
-          <td><img src = "avatars/{{this.photo}}" /></td>
+          <td><img src = "photos/{{this.photo}}" /></td>
           <td>{{this.title}}</td>
           <td>{{this.description}}</td>
           <td>{{this.date}}</td>
+          <td>{{this.items}}</td>
+          <td>{{this.item2}}</td>
+          <td>{{this.item3}}</td>
+          <td>{{this.item4}}</td>
+          <td>{{this.item5}}</td>
         </tr>
         {{/each}}
       </table>

@@ -1,6 +1,8 @@
 /** @module Contacts */
 
 import sqlite from 'sqlite-async'
+import mime from 'mime-types'
+import fs from 'fs-extra'
 
 /*
 * CONTACTS
@@ -47,6 +49,32 @@ class Contacts {
 			contacts[index].date = dateFormatted
 		}
 		return contacts
+	}
+
+	async add(data) {
+		console.log('ADD')
+		console.log(data)
+    let filename
+    if (data.fileName) {
+      filename = `${Date.now()}.${mime.extension(data.fileType)}`
+      console.log(filename)
+      await fs.copy(data.filePath, `public/photos/${filename}`)
+    }
+    try {
+  const sql=`INSERT INTO contacts(userid, title, photo, description, date, items, item2, item3, item4, item5)\
+  VALUES(${data.account}, "${data.title}", "${filename}", "${data.description}", "${data.date}", "${data.items}",\
+  "${data.item2}", "${data.item3}", "${data.item4}", "${data.item5}");`
+  console.log(sql)
+  await this.db.run(sql)
+	return true
+  } catch(err) {
+  console.log(err)
+  throw(err)
+  }
+}
+
+	async close() {
+		await this.db.close()
 	}
 }
 

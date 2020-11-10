@@ -25,6 +25,21 @@ class Contacts {
 			photo TEXT,\
 			description TEXT NOT NULL,\
 			date INTEGER,\
+      item1name TEXT NOT NULL,\
+      item1price TEXT NOT NULL,\
+      item1link TEXT NOT NULL,\
+      item2name TEXT,\
+      item2price TEXT,\
+      item2link TEXT,\
+      item3name TEXT,\
+      item3price TEXT,\
+      item3link TEXT,\
+      item4name TEXT,\
+      item4price TEXT,\
+      item4link TEXT,\
+      item5name TEXT,\
+      item5price TEXT,\
+      item5link TEXT,\
 			FOREIGN KEY(userid) REFERENCES users(id)\
 		);'
 			await this.db.run(sql)

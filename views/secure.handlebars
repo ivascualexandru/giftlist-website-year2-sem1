@@ -27,18 +27,18 @@
     {{/if}}
     <p>This is a secure page. Users need to have a valid account and be logged in to see it.</p>
     <table>
-      <tr><th>Photo</th><th>Title</th><th>Description</th><th>Date</th><th>Items</th></tr>
+      <tr><th>Photo</th><th>Title</th><th>Description</th><th>Date</th><th>Item1</th><th>Item2</th><th>Item3</th><th>Item4</th><th>Item5</th></tr>
         {{#each records}}
         <tr>
           <td><img src = "photos/{{this.photo}}" /></td>
           <td>{{this.title}}</td>
           <td>{{this.description}}</td>
           <td>{{this.date}}</td>
-          <td>{{this.items}}</td>
-          <td>{{this.item2}}</td>
-          <td>{{this.item3}}</td>
-          <td>{{this.item4}}</td>
-          <td>{{this.item5}}</td>
+          <td>{{this.item1name}}<br>${{this.item1price}}<br><a href={{this.item1link}}>Link</a></td>
+          <td>{{this.item2name}}<br>${{this.item2price}}<br><a href={{this.item2link}}>Link</a></td>
+          <td>{{this.item3name}}<br>${{this.item3price}}<br><a href={{this.item3link}}>Link</a></td>
+          <td>{{this.item4name}}<br>${{this.item4price}}<br><a href={{this.item4link}}>Link</a></td>
+          <td>{{this.item5name}}<br>${{this.item5price}}<br><a href={{this.item5link}}>Link</a></td>
         </tr>
         {{/each}}
       </table>

@@ -76,9 +76,12 @@ class Contacts {
       await fs.copy(data.filePath, `public/photos/${filename}`)
     }
     try {
-  const sql=`INSERT INTO contacts(userid, title, photo, description, date, items, item2, item3, item4, item5)\
-  VALUES(${data.account}, "${data.title}", "${filename}", "${data.description}", "${data.date}", "${data.items}",\
-  "${data.item2}", "${data.item3}", "${data.item4}", "${data.item5}");`
+  const sql=`INSERT INTO contacts(userid, title, photo, description, date, item1name,item1price,item1link,\
+  item2name,item2price,item2link,item3name,item3price,item3link,item4name,item4price,item4link,item5name,item5price,item5link)\
+  VALUES(${data.account}, "${data.title}", "${filename}", "${data.description}", "${data.date}", "${data.item1name}",\
+  ${data.item1price},"${data.item1link}","${data.item2name}",${data.item2price},"${data.item2link}",\
+  "${data.item3name}",${data.item3price},"${data.item3link}","${data.item4name}",${data.item4price},"${data.item4link}",\
+  "${data.item5name}",${data.item5price},"${data.item5link}");`
   console.log(sql)
   await this.db.run(sql)
 	return true

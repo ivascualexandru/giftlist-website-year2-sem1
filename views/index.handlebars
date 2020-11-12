@@ -38,11 +38,31 @@
           <td>{{this.title}}</td>
           <td>{{this.description}}</td>
           <td>{{this.date}}</td>
-          <td>{{this.item1name}}<br>${{this.item1price}}<br><a href={{this.item1link}}>Link</a></td>
-          <td>{{this.item2name}}<br>${{this.item2price}}<br><a href={{this.item2link}}>Link</a></td>
-          <td>{{this.item3name}}<br>${{this.item3price}}<br><a href={{this.item3link}}>Link</a></td>
-          <td>{{this.item4name}}<br>${{this.item4price}}<br><a href={{this.item4link}}>Link</a></td>
-          <td>{{this.item5name}}<br>${{this.item5price}}<br><a href={{this.item5link}}>Link</a></td>
+          {{#if this.item1name}}
+          <td>{{this.item1name}}<br>${{this.item1price}}<br><a href={{this.item1link}}>Item Link</a></td>
+          {{else}}
+          <td>&nbsp;</td>
+          {{/if}}
+          {{#if this.item2name}}
+          <td>{{this.item2name}}<br>${{this.item2price}}<br><a href={{this.item2link}}>Item Link</a></td>
+          {{else}}
+          <td>&nbsp;</td>
+          {{/if}}
+          {{#if this.item3name}}
+          <td>{{this.item3name}}<br>${{this.item3price}}<br><a href={{this.item3link}}>Item Link</a></td>
+          {{else}}
+          <td>&nbsp;</td>
+          {{/if}}
+          {{#if this.item4name}}
+          <td>{{this.item4name}}<br>${{this.item4price}}<br><a href={{this.item4link}}>Item Link</a></td>
+          {{else}}
+          <td>&nbsp;</td>
+          {{/if}}
+          {{#if this.item5name}}
+          <td>{{this.item5name}}<br>${{this.item5price}}<br><a href={{this.item5link}}>Item Link</a></td>
+          {{else}}
+          <td>&nbsp;</td>
+          {{/if}}
         </tr>
         {{/each}}
       </table>

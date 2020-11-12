@@ -40,9 +40,9 @@ router.post('/add', async ctx => {
 			ctx.request.body.filePath = ctx.request.files.photo.path
 			ctx.request.body.fileName = ctx.request.files.photo.name
 			ctx.request.body.fileType = ctx.request.files.photo.type
-    ctx.request.body.account = ctx.session.userid
-    }
-    await contacts.add(ctx.request.body)
+			ctx.request.body.account = ctx.session.userid
+		}
+		await contacts.add(ctx.request.body)
 		return ctx.redirect('/secure?msg=new event added')
 	} catch(err) {
 		console.log(err)

@@ -1,0 +1,23 @@
+function checkCommitBranch() {
+  branch = "$(git rev-parse --abrev-ref HEAD)"
+  if [[ "$branch" == 'master']]
+  then
+    if [[ "$2" == 'merge']] #if second word is merge aka git merge
+    then
+      echo "Trying to merge into master, use pull request"
+      exit 1
+    else
+      read -p "Comitting to master. Proceed? [y/n] " -n 1 -r -t 10 < /dev/tty
+      echo
+      if echo "$REPLY" | grep -E '^[Nn]?$' --quiet
+      then
+        echo "ABORTING"
+        exit 1
+      fi
+    fi
+  fi
+}
+
+echo "PRE-COMMIT"
+checkCommitBranch
+echo "FINISHED PRE-COMMIT"

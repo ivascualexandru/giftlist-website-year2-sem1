@@ -6,6 +6,7 @@ import Contacts from '../modules/contacts.js'
 const dbName = 'website.db'
 import Accounts from '../modules/accounts.js'
 
+
 const router = new Router()
 router.use(bodyParser({multipart: true}))
 
@@ -27,7 +28,6 @@ router.get('/', async ctx => {
 		await ctx.render('error', ctx.hbs)
 	}
 })
-
 
 /**
  * The user registration page.
@@ -69,8 +69,10 @@ router.post('/login', async ctx => {
 	ctx.hbs.body = ctx.request.body
 	try {
 		const body = ctx.request.body
-		await account.login(body.user, body.pass)
+		const id = await account.login(body.user, body.pass)
 		ctx.session.authorised = true
+		ctx.session.user = body.user
+		ctx.session.userid = id
 		const referrer = body.referrer || '/secure'
 		return ctx.redirect(`${referrer}?msg=you are now logged in...`)
 	} catch(err) {
@@ -83,6 +85,8 @@ router.post('/login', async ctx => {
 
 router.get('/logout', async ctx => {
 	ctx.session.authorised = null
+	delete ctx.session.user
+	delete ctx.session.userid
 	ctx.redirect('/?msg=you are now logged out')
 })
 

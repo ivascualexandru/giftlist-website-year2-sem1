@@ -1,0 +1,75 @@
+
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Add New Events</title>
+		<meta name="description" content="form to add new books">
+		<meta name="author" content="Mark Tyers">
+		<link href="{{host}}/style.css" type="text/css" rel="stylesheet" />
+		<script type="module" src="main.js"></script>
+	</head>
+	<body>
+		<header>
+		  <h1>Add New Events</h1>
+		  <a href="/logout">Log out</a>
+    </header>
+		{{#if msg}}
+ 			<aside>
+				<p class="msg">{{msg}}</p>
+			</aside>
+		{{/if}}
+		<main>
+      <p><a href="/secure">Cancel the Event!</a></p>
+      <form method="post" action="/secure/add" enctype="multipart/form-data">
+        <p>
+          <label for="title"><u>Event Title</u></label><br />
+          <input type="text" name="title" placeholder="Event Title" value="" autofocus required>
+        </p>
+        <p>
+          <label for="photo"><u>Event Picture</u></label><br />
+          <input type="file" name="photo" accept="image/*">
+        </p>
+        <p>
+          <label for="description"><u>Event Description</u></label><br />
+          <textarea name="description" placeholder="A detailed description for the event" required></textarea>
+        </p>
+        <p>
+          <label><u>Items</u></label><br>
+          <label for="item1">Item 1</label><br />
+          <input type="text" name="item1name" placeholder="Name" value="" required><br />
+          <input type="text" name="item1price" placeholder="Price (IN USD)" value="" required><br />
+          <input type="text" name="item1link" placeholder="Link" value="" required><br />
+
+          <label for="item2">Item 2</label><br />
+          <input type="text" name="item2name" placeholder="Name(OPTIONAL)" value=""><br />
+          <input type="text" name="item2price" placeholder="Price (OPTIONAL)" value=""><br />
+          <input type="text" name="item2link" placeholder="Link (OPTIONAL)" value=""><br />
+
+          <label for="item3">Item 3</label><br />
+          <input type="text" name="item3name" placeholder="Name (OPTIONAL)" value=""><br />
+          <input type="text" name="item3price" placeholder="Price (OPTIONAL)" value=""><br />
+          <input type="text" name="item3link" placeholder="Link (OPTIONAL)" value=""><br />
+
+          <label for="item4">Item 4</label><br />
+          <input type="text" name="item4name" placeholder="Name (OPTIONAL)" value=""><br />
+          <input type="text" name="item4price" placeholder="Price (OPTIONAL)" value=""><br />
+          <input type="text" name="item4link" placeholder="Link (OPTIONAL)" value=""><br />
+
+          <label for="item5">Item 5</label><br />
+          <input type="text" name="item5name" placeholder="Name(OPTIONAL)" value=""><br />
+          <input type="text" name="item5price" placeholder="Price (OPTIONAL)" value=""><br />
+          <input type="text" name="item5link" placeholder="Link (OPTIONAL)" value=""><br />
+
+        </p>
+        <p>
+          <p><label for="date"><u>Date</u></label><br />
+          <input type="text" name="date" placeholder="Date of the event YYYY-MM-DD HH:MM:SS" value="" required>
+          </p>
+        <p><input type="submit" value="Add Event"></p>
+        </p>
+      </form>
+		</main>
+	</body>
+</html>

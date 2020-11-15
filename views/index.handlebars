@@ -31,18 +31,38 @@
 		<table>
       <p id='message'></p>
       <p>This is the home page. Everyone can see this.</p>
-      <tr><th>Photo</th><th>Title</th><th>Description</th><th>Date</th><th>Items</th></tr>
+      <tr><th>Photo</th><th>Title</th><th>Description</th><th>Date</th><th>Item1</th><th>Item2</th><th>Item3</th><th>Item4</th><th>Item5</th></tr>
         {{#each records}}
         <tr>
           <td><img src = "photos/{{this.photo}}" /></td>
           <td>{{this.title}}</td>
           <td>{{this.description}}</td>
           <td>{{this.date}}</td>
-          <td>{{this.items}}</td>
-          <td>{{this.item2}}</td>
-          <td>{{this.item3}}</td>
-          <td>{{this.item4}}</td>
-          <td>{{this.item5}}</td>
+          {{#if this.item1name}}
+          <td>{{this.item1name}}<br>${{this.item1price}}<br><a href={{this.item1link}}>Item Link</a></td>
+          {{else}}
+          <td>&nbsp;</td>
+          {{/if}}
+          {{#if this.item2name}}
+          <td>{{this.item2name}}<br>${{this.item2price}}<br><a href={{this.item2link}}>Item Link</a></td>
+          {{else}}
+          <td>&nbsp;</td>
+          {{/if}}
+          {{#if this.item3name}}
+          <td>{{this.item3name}}<br>${{this.item3price}}<br><a href={{this.item3link}}>Item Link</a></td>
+          {{else}}
+          <td>&nbsp;</td>
+          {{/if}}
+          {{#if this.item4name}}
+          <td>{{this.item4name}}<br>${{this.item4price}}<br><a href={{this.item4link}}>Item Link</a></td>
+          {{else}}
+          <td>&nbsp;</td>
+          {{/if}}
+          {{#if this.item5name}}
+          <td>{{this.item5name}}<br>${{this.item5price}}<br><a href={{this.item5link}}>Item Link</a></td>
+          {{else}}
+          <td>&nbsp;</td>
+          {{/if}}
         </tr>
         {{/each}}
       </table>

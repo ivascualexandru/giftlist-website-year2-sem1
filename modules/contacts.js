@@ -55,6 +55,23 @@ class Contacts {
 		return contacts
 	}
 
+  async getByID(id) {
+    try {
+      const sql = `SELECT users.user, contacts.* FROM contacts,users\
+                  WHERE contacts.userid = users.id AND contacts.id = ${id};`
+      console.log(sql)
+      const contact = await this.db.get(sql)
+      if (contact.photo === null) contact.photo = 'placeholder.jpg'
+			const dateTime = new Date(contact.date)
+			const dateFormatted = `${dateTime.getDate()}/${dateTime.getMonth()+1}/${dateTime.getFullYear()}`
+			contact.date = dateFormatted
+      return contact
+    } catch(err){
+      console.log(err)
+      throw err
+    }
+  }
+  
 	async add(data) {
 		//console.log(data)
 		let filename

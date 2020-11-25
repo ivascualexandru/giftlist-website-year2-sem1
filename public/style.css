@@ -161,7 +161,7 @@ input:focus {
 } */
 
 input[type="submit"], .button, header > a, body > a, .custom-file-upload {
-  background-color: FFEBCD;
+  background-color: #131921;
   border: 2px solid grey;
   color: white;
 	padding: 0.4vw 0.8vw;
@@ -174,7 +174,7 @@ input[type="submit"], .button, header > a, body > a, .custom-file-upload {
 
 input[type="submit"]:hover, header > a:hover, .custom-file-upload:hover, .add:hover {
   color: white;
-  background-color: FFEBCD;
+  background-color: #131921;
   border: 2px solid white;
 }
 
@@ -276,7 +276,7 @@ button#add {
 	bottom: 1em;
 	right: 1em;
 	z-index: 5;
-	background-color: grey;
+	background-color: #131921;
 	color: white;
 	font-size: 5em;
 	width: 1.2em;

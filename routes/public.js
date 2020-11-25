@@ -26,6 +26,7 @@ router.get('/', async ctx => {
 		await ctx.render('index', ctx.hbs)
 	} catch(err) {
 		await ctx.render('error', ctx.hbs)
+    console.log(err.message)
 	}
 })
 

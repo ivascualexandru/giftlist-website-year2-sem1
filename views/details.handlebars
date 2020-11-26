@@ -12,7 +12,7 @@
   </head>
   <body>
     <header>
-    <h1>Details - {{contact.title}}</h1>
+      <h1>Details - {{contact.title}}</h1>
       <a href="/logout">Log out</a>
     </header>
     {{#if msg}}
@@ -23,7 +23,8 @@
     <main>
       <p>
       <figure>
-        <td><img src="photos/{{contact.photo}}" \></td>
+        <tr>
+        <td><img src="{{host}}/photos/{{contact.photo}}" \></td><br>
         <td>{{contact.title}}</td><br>
         <td>{{contact.description}}</td><br>
         <td>Due:{{contact.date}}</td><br>
@@ -53,8 +54,8 @@
           {{else}}
           <td>&nbsp;</td>
           {{/if}}
-        
-      </figure>
+          </tr>
+        </figure>
       </p>
     </main>
       <p><a href="/secure">Back</a></p>

@@ -55,23 +55,23 @@ class Contacts {
 		return contacts
 	}
 
-  async getByID(id) {
-    try {
-      const sql = `SELECT users.user, contacts.* FROM contacts,users\
+	async getByID(id) {
+		try {
+			const sql = `SELECT users.user, contacts.* FROM contacts,users\
                   WHERE contacts.userid = users.id AND contacts.id = ${id};`
-      console.log(sql)
-      const contact = await this.db.get(sql)
-      if (contact.photo === null) contact.photo = 'placeholder.jpg'
+			console.log(sql)
+			const contact = await this.db.get(sql)
+			if (contact.photo === null) contact.photo = 'placeholder.jpg'
 			const dateTime = new Date(contact.date)
 			const dateFormatted = `${dateTime.getDate()}/${dateTime.getMonth()+1}/${dateTime.getFullYear()}`
 			contact.date = dateFormatted
-      return contact
-    } catch(err){
-      console.log(err)
-      throw err
-    }
-  }
-  
+			return contact
+		} catch(err) {
+			console.log(err)
+			throw err
+		}
+	}
+
 	async add(data) {
 		//console.log(data)
 		let filename
@@ -84,9 +84,9 @@ class Contacts {
 			const sql=`INSERT INTO contacts(userid,title,photo,description,date,item1name,item1price,item1link,item2nam\
 e,item2price,item2link,item3name,item3price,item3link,item4name,item4price,item4link,item5name,item5price,item5link) VA\
 LUES(${data.account},"${data.title}","${filename}","${data.description}","${data.date}","${data.item1name}",\
-"${data.item1price}","${data.item1link}","${data.item2name}","${data.item2price}","${data.item2link}","${data.item3name}",\
-"${data.item3price}","${data.item3link}","${data.item4name}","${data.item4price}","${data.item4link}","${data.item5name}",\
-"${data.item5price}","${data.item5link}");`
+"${data.item1price}","${data.item1link}","${data.item2name}","${data.item2price}","${data.item2link}",\
+"${data.item3name}","${data.item3price}","${data.item3link}","${data.item4name}","${data.item4price}",\
+"${data.item4link}","${data.item5name}","${data.item5price}","${data.item5link}");`
 			//console.log(sql)
 			await this.db.run(sql)
 			return true

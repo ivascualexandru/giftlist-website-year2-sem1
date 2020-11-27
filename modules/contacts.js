@@ -29,7 +29,11 @@ class Contacts {
       item3name TEXT, item3price TEXT, item3link TEXT,\
       item4name TEXT, item4price TEXT, item4link TEXT,\
       item5name TEXT, item5price TEXT, item5link TEXT,\
-			FOREIGN KEY(userid) REFERENCES users(id)\
+      item1pledge TEXT, item2pledge TEXT, item3pledge TEXT,\
+      item4pledge TEXT, item5pledge TEXT, FOREIGN KEY(item1pledge) REFERENCES users(id)\
+			FOREIGN KEY(item2pledge) REFERENCES users(id),FOREIGN KEY(item3pledge) REFERENCES users(id),\
+      FOREIGN KEY(item4pledge) REFERENCES users(id),FOREIGN KEY(item5pledge) REFERENCES users(id),\
+      FOREIGN KEY(userid) REFERENCES users(id)\
 		);'
 			await this.db.run(sql)
 			return this
@@ -47,7 +51,7 @@ class Contacts {
 								WHERE contacts.userid = users.id;'
 		const contacts = await this.db.all(sql)
 		for (const index in contacts) {
-			if (contacts[index].photo === null) contacts[index].photo = 'placeholder.jpg'
+			if ((contacts[index].photo === null) || (contacts[index].photo === undefined)) contacts[index].photo = 'placeholder.jpg'
 			const dateTime = new Date(contacts[index].date)
 			const dateFormatted = `${dateTime.getDate()}/${dateTime.getMonth()+1}/${dateTime.getFullYear()}`
 			contacts[index].date = dateFormatted

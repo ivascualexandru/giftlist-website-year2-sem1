@@ -1,6 +1,7 @@
 
 import test from 'ava'
 import Accounts from '../modules/accounts.js'
+import Contacts from '../modules/contacts.js'
 
 test('REGISTER : register and log in with a valid account', async test => {
 	test.plan(1)
@@ -106,6 +107,30 @@ test('LOGIN    : invalid password', async test => {
 		test.fail('error not thrown')
 	} catch(err) {
 		test.is(err.message, 'invalid password for account "doej"', 'incorrect error message')
+	} finally {
+		account.close()
+	}
+})
+
+test('ADD NEW  : check if link', async test => {
+	test.plan(1)
+	const account = await new Accounts()
+	try {
+    let data
+    data.account = 1
+    data.title = "Test Event"
+    let filename = "testphoto.jpg"
+    data.description = "This is a test events description. Pay this no mind"
+    data.date = "2020-11-15 15:31:40"
+    data.item1name = "Test item 1"
+    data.item1link = ""
+    data.item1price = "16"
+		await account.register('doej', 'password', 'doej@gmail.com')
+		await account.login('doej', 'password')
+    await contact.add(data)
+    test.is(add, true, 'unable to log in')    
+	} catch(err) {
+    test.fail('error thrown')
 	} finally {
 		account.close()
 	}

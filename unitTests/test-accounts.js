@@ -115,20 +115,19 @@ test('LOGIN    : invalid password', async test => {
 test('ADD NEW  : check if link', async test => {
 	test.plan(1)
 	const account = await new Accounts()
-	try {
-    let data
-    data.account = 1
-    data.title = "Test Event"
-    let filename = "testphoto.jpg"
-    data.description = "This is a test events description. Pay this no mind"
-    data.date = "2020-11-15 15:31:40"
-    data.item1name = "Test item 1"
-    data.item1link = ""
-    data.item1price = "16"
-		await account.register('doej', 'password', 'doej@gmail.com')
-		await account.login('doej', 'password')
-    await contact.add(data)
-    test.is(add, true, 'unable to log in')    
+  const contact = await new Contacts()
+  try {
+    //let data
+    let data.accountNo = 1
+    let data.title = "Test Event"
+    let data.filename = "testphoto.jpg"
+    let data.description = "This is a test events description. Pay this no mind"
+    let data.date = "2020-11-15 15:31:40"
+    let data.item1name = "Test item 1"
+    let data.item1link = "https://www.amazon.com/Samsung-Inch-Internal-MZ-76E1T0B-AM/dp/B078DPCY3T/ref=lp_16225007011_1_2?s=computers-intl-ship&ie=UTF8&qid=1606745162&sr=1-2"
+    let data.item1price = "16"
+    const addData = await contacts.add(data)
+    test.is(addData,true,"Cannot add data");
 	} catch(err) {
     test.fail('error thrown')
 	} finally {

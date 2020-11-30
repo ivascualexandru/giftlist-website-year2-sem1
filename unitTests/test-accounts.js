@@ -9,7 +9,7 @@ test('REGISTER : register and log in with a valid account', async test => {
 	try {
 		await account.register('doej', 'password', 'doej@gmail.com')
 	  const login = await account.login('doej', 'password')
-		test.is(login, true, 'unable to log in')
+		test.is(login, 1, 'unable to log in')
 	} catch(err) {
 		test.fail('error thrown')
 	} finally {
@@ -112,25 +112,38 @@ test('LOGIN    : invalid password', async test => {
 	}
 })
 
-test('ADD NEW  : check if link', async test => {
+test('ADD NEW  : check to see if it works', async test => {
 	test.plan(1)
-	const account = await new Accounts()
   const contact = await new Contacts()
+  let data = 
+      {
+        account: 1,
+        title: "Test Event",
+        filename: "testphoto.jpg",
+        description: "This is a test events description. Pay this no mind",
+        date: "2020-11-15 15:31:40",
+        item1name: "Test item 1",
+        item1link: "abc",
+        item1price: "16",
+        item2name: "Test item 2",
+        item2link: "abcd",
+        item2price: "16",
+        item3name: "Test item 3",
+        item3link: "abcg",
+        item3price: "18",
+        item4name: "Test item 4",
+        item4link: "abcf",
+        item4price: "11",
+        item5name: "Test item 5",
+        item5link: "abcd",
+        item5price: "15"
+      }
   try {
-    //let data
-    let data.accountNo = 1
-    let data.title = "Test Event"
-    let data.filename = "testphoto.jpg"
-    let data.description = "This is a test events description. Pay this no mind"
-    let data.date = "2020-11-15 15:31:40"
-    let data.item1name = "Test item 1"
-    let data.item1link = "https://www.amazon.com/Samsung-Inch-Internal-MZ-76E1T0B-AM/dp/B078DPCY3T/ref=lp_16225007011_1_2?s=computers-intl-ship&ie=UTF8&qid=1606745162&sr=1-2"
-    let data.item1price = "16"
-    const addData = await contacts.add(data)
-    test.is(addData,true,"Cannot add data");
+    const addData = await contact.add(data)
+    test.is(addData,true,'Cannot add data')
 	} catch(err) {
-    test.fail('error thrown')
+    test.fail(err.message, 'error thrown')
 	} finally {
-		account.close()
+    contact.close()
 	}
 })

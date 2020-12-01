@@ -18,7 +18,6 @@ router.use(checkAuth)
 router.get('/', async ctx => {
 	const contacts = await new Contacts(dbName)
 	try {
-		console.log('THIS IS A TEST')
 		const records = await contacts.all()
 		console.log(records)
 		ctx.hbs.records = records

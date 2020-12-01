@@ -18,7 +18,11 @@ router.use(checkAuth)
 router.get('/', async ctx => {
 	const entries = await new Entries(dbName)
 	try {
+<<<<<<< HEAD
 		const records = await entries.all()
+=======
+		const records = await contacts.all()
+>>>>>>> stage1part3
 		console.log(records)
 		ctx.hbs.records = records
 		await ctx.render('secure', ctx.hbs)
@@ -29,6 +33,7 @@ router.get('/', async ctx => {
 })
 
 router.get('/details/:id', async ctx => {
+<<<<<<< HEAD
   const entries = await new Entries(dbName)
   try {
     console.log(`record: ${ctx.params.id}`)
@@ -40,6 +45,19 @@ router.get('/details/:id', async ctx => {
     console.log(err)
     await ctx.render('error', ctx.hbs)
   }
+=======
+	const contacts = await new Contacts(dbName)
+	try {
+		console.log(`record: ${ctx.params.id}`)
+		ctx.hbs.contact = await contacts.getByID(ctx.params.id)
+		console.log(ctx.hbs)
+		ctx.hbs.id = ctx.params.id
+		await ctx.render('details', ctx.hbs)
+	} catch(err) {
+		console.log(err)
+		await ctx.render('error', ctx.hbs)
+	}
+>>>>>>> stage1part3
 })
 
 router.get('/add', async ctx => {

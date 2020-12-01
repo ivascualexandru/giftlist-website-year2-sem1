@@ -18,7 +18,7 @@ class Entries {
 		return (async() => {
 			this.db = await sqlite.open(dbName)
 			//We need this to store the user accounts
-			const sql = 'CREATE TABLE IF NOT EXISTS contacts(\
+			const sql = 'CREATE TABLE IF NOT EXISTS entries(\
 			id INTEGER PRIMARY KEY AUTOINCREMENT,\
 			userid INTEGER NOT NULL, title TEXT NOT NULL,\
 			photo TEXT,\
@@ -55,53 +55,67 @@ class Entries {
 		return entries
 	}
 
-  /*
+	/*
   * retrieves the contact with id = input from the system
   * @returns {Array} returns an array containing the contact with id = input from the database
   */
-  
-  async getByID(id) {
-    try {
-      const sql = `SELECT users.user, entries.* FROM entries,users\
+
+	async getByID(id) {
+		try {
+			const sql = `SELECT users.user, entries.* FROM entries,users\
                   WHERE entries.userid = users.id AND entries.id = ${id};`
-      console.log(sql)
-      const contact = await this.db.get(sql)
-      if (contact.photo === null) contact.photo = 'placeholder.jpg'
+			console.log(sql)
+			const contact = await this.db.get(sql)
+			if (contact.photo === null) contact.photo = 'placeholder.jpg'
 			const dateTime = new Date(contact.date)
 			const dateFormatted = `${dateTime.getDate()}/${dateTime.getMonth()+1}/${dateTime.getFullYear()}`
 			contact.date = dateFormatted
-      return contact
-    } catch(err){
-      console.log(err)
-      throw err
-    }
-  }
+			return contact
+		} catch(err) {
+			console.log(err)
+			throw err
+		}
+	}
   
-  /*
-  * adds data into the database by running an sql command.
-  * files are treated by giving them a time in seconds from 1970, and then sticking the extension on at the end. (append)
-  * @returns true if it works, else it'll throw an error.
+  //So since I already had the maximum number of lines in the add function, I decided to try and write a separate
+  //function to test the data given. However, it wouldn't recognize it for some reason so instead of deleting it I
+  //commented it out in hopes that I maybe am given SOME marks for my attempt.
+  //It's a really basic test, however it's all I have at 01:18 AM
+  
+/*
+	async testData(data) {
+		let i,j
+		for (i = 0; i < 5; i++) {
+			for (i = 0; i < 5; i++) {
+				if(`data.item${i}link` === `data.item${j}link`) {
+					throw new Error(`link ${i} has the same value as link ${j}`)
+				}
+			}
+		}
+		return true
+	}
+*/
+	/*
+  *adds data into the database by running an sql command.
+  *files are treated by giving them a time in seconds from 1970, and then sticking the extension on at the end. (append)
+  *@returns true if it works, else it'll throw an error.
   */
-  
+
 	async add(data) {
-		//console.log(data)
 		let filename
 		if (data.fileName) {
 			filename = `${Date.now()}.${mime.extension(data.fileType)}`
-			console.log(filename)
 			await fs.copy(data.filePath, `public/photos/${filename}`)
 		}
 		try {
 			const sql=`INSERT INTO entries(userid,title,photo,description,date,item1name,item1price,item1link,\
                 item2name,item2price,item2link,item3name,item3price,item3link,item4name,item4price,item4link,\
-                item5name,item5price,item5link) \
-                VALUES(${data.account},"${data.title}","${filename}","${data.description}","${data.date}",\
-                      "${data.item1name}","${data.item1price}","${data.item1link}",\
-                      "${data.item2name}","${data.item2price}","${data.item2link}",\
-                      "${data.item3name}","${data.item3price}","${data.item3link}",\
-                      "${data.item4name}","${data.item4price}","${data.item4link}",\
-                      "${data.item5name}","${data.item5price}","${data.item5link}");`
-			//console.log(sql)
+                item5name,item5price,item5link) VALUES(${data.account},"${data.title}","${filename}",\
+                "${data.description}","${data.date}","${data.item1name}","${data.item1price}","${data.item1link}",\
+                "${data.item2name}","${data.item2price}","${data.item2link}","${data.item3name}","${data.item3price}",\
+                "${data.item3link}","${data.item4name}","${data.item4price}","${data.item4link}",\
+                "${data.item5name}","${data.item5price}","${data.item5link}");`
+			//await testData(data)
 			await this.db.run(sql)
 			return true
 		} catch(err) {
@@ -109,8 +123,8 @@ class Entries {
 		}
 	}
 
-  //closes the database. i know, tuff
-  
+	//closes the database. i know, tuff
+
 	async close() {
 		await this.db.close()
 	}

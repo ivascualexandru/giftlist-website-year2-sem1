@@ -29,17 +29,17 @@ router.get('/', async ctx => {
 })
 
 router.get('/details/:id', async ctx => {
-  const entries = await new Entries(dbName)
-  try {
-    console.log(`record: ${ctx.params.id}`)
-    ctx.hbs.contact = await entries.getByID(ctx.params.id)
-    console.log(ctx.hbs)
-    ctx.hbs.id = ctx.params.id
-    await ctx.render('details', ctx.hbs)
-  } catch(err){
-    console.log(err)
-    await ctx.render('error', ctx.hbs)
-  }
+	const entries = await new Entries(dbName)
+	try {
+		console.log(`record: ${ctx.params.id}`)
+		ctx.hbs.contact = await entries.getByID(ctx.params.id)
+		console.log(ctx.hbs)
+		ctx.hbs.id = ctx.params.id
+		await ctx.render('details', ctx.hbs)
+	} catch(err) {
+		console.log(err)
+		await ctx.render('error', ctx.hbs)
+	}
 })
 
 router.get('/add', async ctx => {

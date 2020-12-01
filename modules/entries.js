@@ -18,7 +18,7 @@ class Entries {
 		return (async() => {
 			this.db = await sqlite.open(dbName)
 			//We need this to store the user accounts
-			const sql = 'CREATE TABLE IF NOT EXISTS contacts(\
+			const sql = 'CREATE TABLE IF NOT EXISTS entries(\
 			id INTEGER PRIMARY KEY AUTOINCREMENT,\
 			userid INTEGER NOT NULL, title TEXT NOT NULL,\
 			photo TEXT,\
@@ -47,7 +47,7 @@ class Entries {
 								WHERE entries.userid = users.id;'
 		const entries = await this.db.all(sql)
 		for (const index in entries) {
-			if (entries[index].photo === null) entries[index].photo = 'placeholder.jpg'
+			if ((entries[index].photo === null) || (entries[index].photo === undefined)) entries[index].photo = 'placeholder.jpg'
 			const dateTime = new Date(entries[index].date)
 			const dateFormatted = `${dateTime.getDate()}/${dateTime.getMonth()+1}/${dateTime.getFullYear()}`
 			entries[index].date = dateFormatted

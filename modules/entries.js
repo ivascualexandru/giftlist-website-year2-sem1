@@ -1,14 +1,14 @@
-/** @module Contacts */
+/** @module Entries */
 
 import sqlite from 'sqlite-async'
 import mime from 'mime-types'
 import fs from 'fs-extra'
 
 /*
-* CONTACTS
-* ES6 Module that manages the contacts in the CRM system.
+* ENTRIES
+* ES6 Module that manages the entries in the secure system.
 */
-class Contacts {
+class Entries {
 	/*
   Create an account object
   @param {String} [dbName=":memory:"] - the name of the database file to use.
@@ -38,27 +38,32 @@ class Contacts {
 
 
 	/*
-* retrieves all the contacts in the system
-* @returns {Array} returns an array containing all the contacts in the database
-*/
+  * retrieves all the entries in the system
+  * @returns {Array} returns an array containing all the entries in the database
+  */
 
 	async all() {
-		const sql = 'SELECT users.user, contacts.* FROM contacts,users\
-								WHERE contacts.userid = users.id;'
-		const contacts = await this.db.all(sql)
-		for (const index in contacts) {
-			if (contacts[index].photo === null) contacts[index].photo = 'placeholder.jpg'
-			const dateTime = new Date(contacts[index].date)
+		const sql = 'SELECT users.user, entries.* FROM entries,users\
+								WHERE entries.userid = users.id;'
+		const entries = await this.db.all(sql)
+		for (const index in entries) {
+			if (entries[index].photo === null) entries[index].photo = 'placeholder.jpg'
+			const dateTime = new Date(entries[index].date)
 			const dateFormatted = `${dateTime.getDate()}/${dateTime.getMonth()+1}/${dateTime.getFullYear()}`
-			contacts[index].date = dateFormatted
+			entries[index].date = dateFormatted
 		}
-		return contacts
+		return entries
 	}
 
+  /*
+  * retrieves the contact with id = input from the system
+  * @returns {Array} returns an array containing the contact with id = input from the database
+  */
+  
   async getByID(id) {
     try {
-      const sql = `SELECT users.user, contacts.* FROM contacts,users\
-                  WHERE contacts.userid = users.id AND contacts.id = ${id};`
+      const sql = `SELECT users.user, entries.* FROM entries,users\
+                  WHERE entries.userid = users.id AND entries.id = ${id};`
       console.log(sql)
       const contact = await this.db.get(sql)
       if (contact.photo === null) contact.photo = 'placeholder.jpg'
@@ -72,6 +77,12 @@ class Contacts {
     }
   }
   
+  /*
+  * adds data into the database by running an sql command.
+  * files are treated by giving them a time in seconds from 1970, and then sticking the extension on at the end. (append)
+  * @returns true if it works, else it'll throw an error.
+  */
+  
 	async add(data) {
 		//console.log(data)
 		let filename
@@ -81,7 +92,7 @@ class Contacts {
 			await fs.copy(data.filePath, `public/photos/${filename}`)
 		}
 		try {
-			const sql=`INSERT INTO contacts(userid,title,photo,description,date,item1name,item1price,item1link,\
+			const sql=`INSERT INTO entries(userid,title,photo,description,date,item1name,item1price,item1link,\
                 item2name,item2price,item2link,item3name,item3price,item3link,item4name,item4price,item4link,\
                 item5name,item5price,item5link) \
                 VALUES(${data.account},"${data.title}","${filename}","${data.description}","${data.date}",\
@@ -98,9 +109,11 @@ class Contacts {
 		}
 	}
 
+  //closes the database. i know, tuff
+  
 	async close() {
 		await this.db.close()
 	}
 }
 
-export default Contacts
+export default Entries

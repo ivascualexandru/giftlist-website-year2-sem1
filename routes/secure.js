@@ -3,7 +3,7 @@ import Router from 'koa-router'
 
 const router = new Router({ prefix: '/secure' })
 
-import Contacts from '../modules/contacts.js'
+import Entries from '../modules/entries.js'
 const dbName = 'website.db'
 
 async function checkAuth(ctx, next) {
@@ -16,10 +16,9 @@ async function checkAuth(ctx, next) {
 router.use(checkAuth)
 
 router.get('/', async ctx => {
-	const contacts = await new Contacts(dbName)
+	const entries = await new Entries(dbName)
 	try {
-    console.log("THIS IS A TEST")
-		const records = await contacts.all()
+		const records = await entries.all()
 		console.log(records)
 		ctx.hbs.records = records
 		await ctx.render('secure', ctx.hbs)
@@ -30,10 +29,10 @@ router.get('/', async ctx => {
 })
 
 router.get('/details/:id', async ctx => {
-  const contacts = await new Contacts(dbName)
+  const entries = await new Entries(dbName)
   try {
     console.log(`record: ${ctx.params.id}`)
-    ctx.hbs.contact = await contacts.getByID(ctx.params.id)
+    ctx.hbs.contact = await entries.getByID(ctx.params.id)
     console.log(ctx.hbs)
     ctx.hbs.id = ctx.params.id
     await ctx.render('details', ctx.hbs)
@@ -48,7 +47,7 @@ router.get('/add', async ctx => {
 })
 
 router.post('/add', async ctx => {
-	const contacts = await new Contacts(dbName)
+	const entries = await new Entries(dbName)
 	try {
 		ctx.request.body.account = ctx.session.userid
 		if (ctx.request.files.photo.name) {
@@ -57,13 +56,13 @@ router.post('/add', async ctx => {
 			ctx.request.body.fileType = ctx.request.files.photo.type
 			ctx.request.body.account = ctx.session.userid
 		}
-		await contacts.add(ctx.request.body)
+		await entries.add(ctx.request.body)
 		return ctx.redirect('/secure?msg=new event added')
 	} catch(err) {
 		console.log(err)
 		await ctx.render('error', ctx.hbs)
 	} finally {
-		contacts.close()
+		entries.close()
 	}
 	console.log('adding new event')
 })

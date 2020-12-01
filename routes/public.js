@@ -2,7 +2,7 @@
 import Router from 'koa-router'
 import bodyParser from 'koa-body'
 
-import Contacts from '../modules/contacts.js'
+import Entries from '../modules/entries.js'
 const dbName = 'website.db'
 import Accounts from '../modules/accounts.js'
 
@@ -18,9 +18,9 @@ router.use(bodyParser({multipart: true}))
  * @route {GET} /
  */
 router.get('/', async ctx => {
-	const contacts = await new Contacts(dbName)
+	const entries = await new Entries(dbName)
 	try {
-		const records = await contacts.all()
+		const records = await entries.all()
 		console.log(records)
 		ctx.hbs.records = records
 		await ctx.render('index', ctx.hbs)

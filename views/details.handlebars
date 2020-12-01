@@ -1,0 +1,62 @@
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Details - {{contact.title}}</title>
+    <meta name="description" content="form to add new books">
+    <meta name="author" content="Mark Tyers">
+    <link href="{{host}}/style.css" type="text/css" rel="stylesheet" />
+    <script type="module" src="{{host}}/main.js"></script>
+  </head>
+  <body>
+    <header>
+    <h1>Details - {{contact.title}}</h1>
+      <a href="/logout">Log out</a>
+    </header>
+    {{#if msg}}
+    <aside>
+      <p class="msg">{{msg}}</p>
+    </aside>
+    {{/if}}
+    <main>
+      <p>
+      <figure>
+        <td><img src="{{host}}/public/photos/{{contact.photo}}" \></td>
+        <td>{{contact.title}}</td><br>
+        <td>{{contact.description}}</td><br>
+        <td>Due:{{contact.date}}</td><br>
+        <label><u>Items</u></label><br>
+        {{#if contact.item1name}}
+          <td>{{contact.item1name}}<br>${{contact.item1price}}<br><a href={{contact.item1link}}>Item Link</a></td><br>
+        {{else}}
+          <td>&nbsp;</td>
+        {{/if}}
+        {{#if contact.item2name}}
+          <td>{{contact.item2name}}<br>${{contact.item2price}}<br><a href={{contact.item2link}}>Item Link</a></td><br>
+        {{else}}
+          <td>&nbsp;</td>
+        {{/if}}
+        {{#if contact.item3name}}
+          <td>{{contact.item3name}}<br>${{contact.item3price}}<br><a href={{contact.item3link}}>Item Link</a></td><br>
+        {{else}}
+          <td>&nbsp;</td>
+        {{/if}}
+        {{#if contact.item4name}}
+          <td>{{contact.item4name}}<br>${{contact.item4price}}<br><a href={{contact.item4link}}>Item Link</a></td><br>
+        {{else}}
+          <td>&nbsp;</td>
+        {{/if}}
+        {{#if contact.item5name}}
+          <td>{{contact.item5name}}<br>${{contact.item5price}}<br><a href={{contact.item5link}}>Item Link</a></td><br>
+        {{else}}
+          <td>&nbsp;</td>
+        {{/if}}
+        
+      </figure>
+      </p>
+    </main>
+      <p><a href="/secure">Back</a></p>
+  </body>
+</html>

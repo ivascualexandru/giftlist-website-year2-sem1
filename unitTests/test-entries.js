@@ -367,7 +367,6 @@ test(' ADD NEW  : not all item 5 fields filled in', async test => {
 test(' ADD NEW  : get specific ID', async test => {
 	test.plan(1)
 	const entry = await new Entries()
-  const account = await new Accounts()
 	const data1 =
       {
       	account: 1,
@@ -391,7 +390,7 @@ test(' ADD NEW  : get specific ID', async test => {
       	item5link: 'abcd',
       	item5price: '30'
       }
-  const data2 =
+	const data2 =
       {
       	account: 1,
       	title: 'Test Event 2',
@@ -416,11 +415,9 @@ test(' ADD NEW  : get specific ID', async test => {
       }
 	try {
 		await entry.add(data1)
-    await entry.add(data2)
-    await account.register('doej', 'password', 'doej@gmail.com')
-    console.log("ACCOUNT REGISTERED")
-    const hopefullyItem2 = await entry.getByID(2)
-    console.log(hopefullyItem2)
+		await entry.add(data2)
+		const hopefullyItem2 = await entry.getByID(2)
+		console.log(hopefullyItem2)
 		test.is(hopefullyItem2,data2,'Cannot add data')
 	} catch(err) {
 		test.fail(err.message, 'error thrown')

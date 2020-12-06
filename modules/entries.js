@@ -76,25 +76,32 @@ class Entries {
 			throw err
 		}
 	}
-  
-  //So since I already had the maximum number of lines in the add function, I decided to try and write a separate
-  //function to test the data given. However, it wouldn't recognize it for some reason so instead of deleting it I
-  //commented it out in hopes that I maybe am given SOME marks for my attempt.
-  //It's a really basic test, however it's all I have at 01:18 AM
-  
-/*
-	async testData(data) {
-		let i,j
-		for (i = 0; i < 5; i++) {
-			for (i = 0; i < 5; i++) {
-				if(`data.item${i}link` === `data.item${j}link`) {
-					throw new Error(`link ${i} has the same value as link ${j}`)
-				}
-			}
+
+	/*
+   * So since this is a really hastily typed unit test to check whether or not the item 1-5 stuff is filled in
+   * all the way, it has a complexity of 31 jesus christ
+  */
+
+
+	async testFilledInData(data) {
+		if(data.item1name&&!data.item1price||data.item1price&&!data.item1link||data.item1link&&!data.item1name) {
+			throw new Error('not all item 1 fields filled in')
+		}
+		if(data.item2name&&!data.item2price||data.item2price&&!data.item2link||data.item2link&&!data.item2name) {
+			throw new Error('not all item 2 fields filled in')
+		}
+		if(data.item3name&&!data.item3price||data.item3price&&!data.item3link||data.item3link&&!data.item3name) {
+			throw new Error('not all item 3 fields filled in')
+		}
+		if(data.item4name&&!data.item4price||data.item4price&&!data.item4link||data.item4link&&!data.item4name) {
+			throw new Error('not all item 4 fields filled in')
+		}
+		if(data.item5name&&!data.item5price||data.item5price&&!data.item5link||data.item5link&&!data.item5name) {
+			throw new Error('not all item 5 fields filled in')
 		}
 		return true
 	}
-*/
+
 	/*
   *adds data into the database by running an sql command.
   *files are treated by giving them a time in seconds from 1970, and then sticking the extension on at the end. (append)
@@ -108,14 +115,13 @@ class Entries {
 			await fs.copy(data.filePath, `public/photos/${filename}`)
 		}
 		try {
-			const sql=`INSERT INTO entries(userid,title,photo,description,date,item1name,item1price,item1link,\
-                item2name,item2price,item2link,item3name,item3price,item3link,item4name,item4price,item4link,\
-                item5name,item5price,item5link) VALUES(${data.account},"${data.title}","${filename}",\
-                "${data.description}","${data.date}","${data.item1name}","${data.item1price}","${data.item1link}",\
-                "${data.item2name}","${data.item2price}","${data.item2link}","${data.item3name}","${data.item3price}",\
-                "${data.item3link}","${data.item4name}","${data.item4price}","${data.item4link}",\
-                "${data.item5name}","${data.item5price}","${data.item5link}");`
-			//await testData(data)
+			const sql=`INSERT INTO entries(userid,title,photo,description,date,item1name,item1price,item1link,item2name\
+,item2price,item2link,item3name,item3price,item3link,item4name,item4price,item4link,item5name,item5price,item5link) VAL\
+UES(${data.account},"${data.title}","${filename}","${data.description}","${data.date}","${data.item1name}",\
+"${data.item1price}","${data.item1link}","${data.item2name}","${data.item2price}","${data.item2link}",\
+"${data.item3name}","${data.item3price}","${data.item3link}","${data.item4name}","${data.item4price}",\
+"${data.item4link}","${data.item5name}","${data.item5price}","${data.item5link}");`
+			await testFilledInData(data)
 			await this.db.run(sql)
 			return true
 		} catch(err) {
@@ -131,3 +137,20 @@ class Entries {
 }
 
 export default Entries
+export function testFilledInData(data) {
+	if(data.item1name&&!data.item1price||data.item1price&&!data.item1link||data.item1link&&!data.item1name) {
+		throw new Error('not all item 1 fields filled in')
+	}
+	if(data.item2name&&!data.item2price||data.item2price&&!data.item2link||data.item2link&&!data.item2name) {
+		throw new Error('not all item 2 fields filled in')
+	}
+	if(data.item3name&&!data.item3price||data.item3price&&!data.item3link||data.item3link&&!data.item3name) {
+		throw new Error('not all item 3 fields filled in')
+	}
+	if(data.item4name&&!data.item4price||data.item4price&&!data.item4link||data.item4link&&!data.item4name) {
+		throw new Error('not all item 4 fields filled in')
+	}
+	if(data.item5name&&!data.item5price||data.item5price&&!data.item5link||data.item5link&&!data.item5name) {
+		throw new Error('not all item 5 fields filled in')
+	}
+}

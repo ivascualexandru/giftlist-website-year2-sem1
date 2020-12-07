@@ -362,3 +362,68 @@ test(' ADD NEW  : not all item 5 fields filled in', async test => {
 		entry.close()
 	}
 })
+<<<<<<< HEAD
+=======
+
+test(' ADD NEW  : get specific ID', async test => {
+	test.plan(1)
+	const entry = await new Entries()
+	const data1 =
+      {
+      	account: 1,
+      	title: 'Test Event',
+      	filename: 'testphoto.jpg',
+      	description: 'This is a test events description. Pay this no mind',
+      	date: '2020-11-15 15:31:40',
+      	item1name: 'Test item 1',
+      	item1link: 'abc',
+      	item1price: '16',
+      	item2name: 'Test item 2',
+      	item2link: 'abcd',
+      	item2price: '16',
+      	item3name: 'Test item 3',
+      	item3link: 'abcg',
+      	item3price: '18',
+      	item4name: 'Test item 4',
+      	item4link: 'abcf',
+      	item4price: '11',
+      	item5name: 'Test item 5',
+      	item5link: 'abcd',
+      	item5price: '30'
+      }
+	const data2 =
+      {
+      	account: 1,
+      	title: 'Test Event 2',
+      	filename: 'testphoto2.jpg',
+      	description: 'This is another test events description. Pay this no mind',
+      	date: '2020-11-15 16:31:40',
+      	item1name: 'Test item 1',
+      	item1link: 'abcd',
+      	item1price: '116',
+      	item2name: 'Test item 2',
+      	item2link: 'abgcd',
+      	item2price: '165',
+      	item3name: 'Test item 3',
+      	item3link: 'abcge',
+      	item3price: '189',
+      	item4name: 'Test item 4',
+      	item4link: 'abcef',
+      	item4price: '111',
+      	item5name: 'Test item 5',
+      	item5link: 'abced',
+      	item5price: '21'
+      }
+	try {
+		await entry.add(data1)
+		await entry.add(data2)
+		const hopefullyItem2 = await entry.getByID(2)
+		console.log(hopefullyItem2)
+		test.is(hopefullyItem2,data2,'Cannot add data')
+	} catch(err) {
+		test.fail(err.message, 'error thrown')
+	} finally {
+		entry.close()
+	}
+})
+>>>>>>> ec71792837d01952d9ddcad4f17dd04092c8fcf6

@@ -45,7 +45,7 @@ class Entries {
 	async all() {
 		const sql = 'SELECT users.user, entries.* FROM entries,users\
 								WHERE entries.userid = users.id;'
-		const entries = await this.db.all(sql)
+		const entries = await this.db.get(sql)
 		for (const index in entries) {
 			if (entries[index].photo===null||entries[index].photo===undefined) entries[index].photo='placeholder.jpg'
 			const dateTime = new Date(entries[index].date)
@@ -62,11 +62,11 @@ class Entries {
 
 	async getByID(id) {
 		try {
-			const sql = `SELECT users.user, entries.* FROM entries,users\
-                  WHERE entries.userid = users.id AND entries.id = ${id};`
+			const sql = `SELECT entries.* FROM entries\
+                  WHERE entries.id = ${id};`
 			console.log(sql)
 			const contact = await this.db.get(sql)
-			if (contact.photo === null) contact.photo = 'placeholder.jpg'
+			if (contact.photo === null || contact.photo === undefined) contact.photo = 'placeholder.jpg'
 			const dateTime = new Date(contact.date)
 			const dateFormatted = `${dateTime.getDate()}/${dateTime.getMonth()+1}/${dateTime.getFullYear()}`
 			contact.date = dateFormatted
@@ -76,7 +76,6 @@ class Entries {
 			throw err
 		}
 	}
-
 
 	/*
   *adds data into the database by running an sql command.
@@ -120,13 +119,25 @@ UES(${data.account},"${data.title}","${filename}","${data.description}","${data.
   */
 
 export default Entries
+
+
+  /*
+   * So since this is a really hastily typed unit test to check whether or not the item 1-5 stuff is filled in
+   * all the way, it has a complexity of 31 jesus christ
+  */
 export function testFilledInData(data) {
 	const itemType = ['name', 'price', 'link']
 	const itemNumber = 5
 	for (let i = 1; i <= itemNumber; i++) {
 		for (let j = 0; j < itemType.length; j++) {
+<<<<<<< HEAD
 			if (eval(`data.item${i}${itemType[j]}`) && !eval(`data.item${i}${itemType[(j+1) % itemType.length]}`)) {
 				throw new Error(`not all item ${i} fields filled in`)
+=======
+			if (eval('data.item'+i+itemType[j]) && !eval('data.item'+i+itemType[(j+1) % itemType.length])) {
+				console.log(`1: ` + eval('data.item'+i+itemType[j]) + `- 2: ` + eval('data.item'+i+itemType[(j+1) % itemType.length]))
+        throw new Error(`not all item `+i+` fields filled in`)
+>>>>>>> ec71792837d01952d9ddcad4f17dd04092c8fcf6
 			}
 		}
 	}

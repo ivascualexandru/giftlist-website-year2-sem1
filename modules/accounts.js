@@ -21,7 +21,7 @@ class Accounts {
 			// we need this table to store the user accounts
 			const sql = 'CREATE TABLE IF NOT EXISTS users\
 				(id INTEGER PRIMARY KEY AUTOINCREMENT, user TEXT, pass TEXT, email TEXT);'
-			await this.db.run(sql)
+			await this.db.all(sql)
 			return this
 		})()
 	}

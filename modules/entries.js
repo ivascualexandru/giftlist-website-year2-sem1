@@ -47,7 +47,7 @@ class Entries {
 								WHERE entries.userid = users.id;'
 		const entries = await this.db.all(sql)
 		for (const index in entries) {
-			if ((entries[index].photo === null) || (entries[index].photo === undefined)) entries[index].photo = 'placeholder.jpg'
+			if (entries[index].photo===null||entries[index].photo===undefined) entries[index].photo='placeholder.jpg'
 			const dateTime = new Date(entries[index].date)
 			const dateFormatted = `${dateTime.getDate()}/${dateTime.getMonth()+1}/${dateTime.getFullYear()}`
 			entries[index].date = dateFormatted
@@ -77,30 +77,6 @@ class Entries {
 		}
 	}
 
-	/*
-   * So since this is a really hastily typed unit test to check whether or not the item 1-5 stuff is filled in
-   * all the way, it has a complexity of 31 jesus christ
-  */
-
-
-	async testFilledInData(data) {
-		if(data.item1name&&!data.item1price||data.item1price&&!data.item1link||data.item1link&&!data.item1name) {
-			throw new Error('not all item 1 fields filled in')
-		}
-		if(data.item2name&&!data.item2price||data.item2price&&!data.item2link||data.item2link&&!data.item2name) {
-			throw new Error('not all item 2 fields filled in')
-		}
-		if(data.item3name&&!data.item3price||data.item3price&&!data.item3link||data.item3link&&!data.item3name) {
-			throw new Error('not all item 3 fields filled in')
-		}
-		if(data.item4name&&!data.item4price||data.item4price&&!data.item4link||data.item4link&&!data.item4name) {
-			throw new Error('not all item 4 fields filled in')
-		}
-		if(data.item5name&&!data.item5price||data.item5price&&!data.item5link||data.item5link&&!data.item5name) {
-			throw new Error('not all item 5 fields filled in')
-		}
-		return true
-	}
 
 	/*
   *adds data into the database by running an sql command.
@@ -136,21 +112,23 @@ UES(${data.account},"${data.title}","${filename}","${data.description}","${data.
 	}
 }
 
+
+/*
+   * Linter only has one warning, and that is the following: data is defined but never used
+   * Well if only the linter could be smart enough to notice
+   *
+  */
+
 export default Entries
 export function testFilledInData(data) {
-	if(data.item1name&&!data.item1price||data.item1price&&!data.item1link||data.item1link&&!data.item1name) {
-		throw new Error('not all item 1 fields filled in')
+	const itemType = ['name', 'price', 'link']
+	const itemNumber = 5
+	for (let i = 1; i <= itemNumber; i++) {
+		for (let j = 0; j < itemType.length; j++) {
+			if (eval(`data.item${i}${itemType[j]}`) && !eval(`data.item${i}${itemType[(j+1) % itemType.length]}`)) {
+				throw new Error(`not all item ${i} fields filled in`)
+			}
+		}
 	}
-	if(data.item2name&&!data.item2price||data.item2price&&!data.item2link||data.item2link&&!data.item2name) {
-		throw new Error('not all item 2 fields filled in')
-	}
-	if(data.item3name&&!data.item3price||data.item3price&&!data.item3link||data.item3link&&!data.item3name) {
-		throw new Error('not all item 3 fields filled in')
-	}
-	if(data.item4name&&!data.item4price||data.item4price&&!data.item4link||data.item4link&&!data.item4name) {
-		throw new Error('not all item 4 fields filled in')
-	}
-	if(data.item5name&&!data.item5price||data.item5price&&!data.item5link||data.item5link&&!data.item5name) {
-		throw new Error('not all item 5 fields filled in')
-	}
+	return true
 }

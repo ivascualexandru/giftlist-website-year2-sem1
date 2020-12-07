@@ -45,9 +45,9 @@ class Entries {
 	async all() {
 		const sql = 'SELECT users.user, entries.* FROM entries,users\
 								WHERE entries.userid = users.id;'
-		const entries = await this.db.get(sql)
+		const entries = await this.db.all(sql)
 		for (const index in entries) {
-			if (entries[index].photo===null||entries[index].photo===undefined) entries[index].photo='placeholder.jpg'
+			if ((entries[index].photo === null) || (entries[index].photo === undefined)) entries[index].photo = 'placeholder.jpg'
 			const dateTime = new Date(entries[index].date)
 			const dateFormatted = `${dateTime.getDate()}/${dateTime.getMonth()+1}/${dateTime.getFullYear()}`
 			entries[index].date = dateFormatted

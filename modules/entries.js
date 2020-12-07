@@ -130,14 +130,8 @@ export function testFilledInData(data) {
 	const itemNumber = 5
 	for (let i = 1; i <= itemNumber; i++) {
 		for (let j = 0; j < itemType.length; j++) {
-<<<<<<< HEAD
 			if (eval(`data.item${i}${itemType[j]}`) && !eval(`data.item${i}${itemType[(j+1) % itemType.length]}`)) {
 				throw new Error(`not all item ${i} fields filled in`)
-=======
-			if (eval('data.item'+i+itemType[j]) && !eval('data.item'+i+itemType[(j+1) % itemType.length])) {
-				console.log(`1: ` + eval('data.item'+i+itemType[j]) + `- 2: ` + eval('data.item'+i+itemType[(j+1) % itemType.length]))
-        throw new Error(`not all item `+i+` fields filled in`)
->>>>>>> ec71792837d01952d9ddcad4f17dd04092c8fcf6
 			}
 		}
 	}

@@ -47,7 +47,7 @@ class Entries {
 								WHERE entries.userid = users.id;'
 		const entries = await this.db.all(sql)
 		for (const index in entries) {
-			if ((entries[index].photo === null) || (entries[index].photo === undefined)) entries[index].photo = 'placeholder.jpg'
+			if (entries[index].photo === null||entries[index].photo===undefined) entries[index].photo='placeholder.jpg'
 			const dateTime = new Date(entries[index].date)
 			const dateFormatted = `${dateTime.getDate()}/${dateTime.getMonth()+1}/${dateTime.getFullYear()}`
 			entries[index].date = dateFormatted
@@ -121,7 +121,7 @@ UES(${data.account},"${data.title}","${filename}","${data.description}","${data.
 export default Entries
 
 
-  /*
+/*
    * So since this is a really hastily typed unit test to check whether or not the item 1-5 stuff is filled in
    * all the way, it has a complexity of 31 jesus christ
   */
